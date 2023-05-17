@@ -44,6 +44,30 @@ namespace TrainingDiary.Controllers
             db.SaveTraining(id, exercise, sets, reps, weights);
             return Redirect("/Home");
         }
+        public IActionResult Delete(int Id)
+        {
+            var db = new SqlDatabase();
+            var training = db.GetTrainingById(Id);
+
+            return View(training);
+        }
+        public IActionResult Edit(int Id)
+        {
+            var db = new SqlDatabase();
+            var training = db.GetTrainingById(Id);
+
+            return View(training);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteTraining(int Id)
+        {
+            var db = new SqlDatabase();
+            db.DeleteTraining(Id);
+            return Redirect("/Home");
+
+        }
+
         public IActionResult Privacy()
         {
             return View();

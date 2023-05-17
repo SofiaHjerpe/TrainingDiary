@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -63,7 +64,17 @@ namespace Database
             cmd.CommandText = $"INSERT INTO Trainings (Id, Exercise, Sets, Reps, Weights) VALUES ({id},'{exercise}', {sets}, {reps}, {weights})";
             cmd.ExecuteNonQuery();
         }
+        public void DeleteTraining(int Id)
+        {
+            string connection = "Data Source=localhost;Initial Catalog=Trainingdb;Integrated Security=True";
+            SqlConnection conn = new SqlConnection(connection);
+            string query = "DELETE FROM Trainings WHERE Id = @Id";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Id", Id);
+            conn.Open();
+            cmd.ExecuteNonQuery();
 
+        }
         private static SqlCommand GetDbCommand()
         {
             string connectionString = "Data Source=localhost;Initial Catalog=Trainingdb;Integrated Security=True";
