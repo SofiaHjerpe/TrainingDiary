@@ -68,6 +68,15 @@ namespace TrainingDiary.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult EditTraining(int id, string exercise, int sets, int reps, int weights)
+        {
+            var db = new SqlDatabase();
+            db.EditTraining( id, exercise, sets, reps, weights);
+            return Redirect("/Home");
+
+        }
+
         public IActionResult Privacy()
         {
             return View();

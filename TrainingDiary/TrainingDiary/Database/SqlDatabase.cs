@@ -75,6 +75,18 @@ namespace Database
             cmd.ExecuteNonQuery();
 
         }
+
+        public void EditTraining(int id, string exercise, int sets, int reps, int weights)
+        {
+            string connection = "Data Source=localhost;Initial Catalog=Trainingdb;Integrated Security=True";
+            SqlConnection conn = new SqlConnection(connection);
+            string query = $"UPDATE Trainings SET Id = {id}, Exercise= '{exercise}', Sets = {sets},  Reps= {reps}, Weights= {weights} WHERE Id = @Id";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Id", id);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+
+        }
         private static SqlCommand GetDbCommand()
         {
             string connectionString = "Data Source=localhost;Initial Catalog=Trainingdb;Integrated Security=True";
@@ -86,6 +98,8 @@ namespace Database
             cmd.CommandType = CommandType.Text;
             return cmd;
         }
+
+    
 
 
     }
